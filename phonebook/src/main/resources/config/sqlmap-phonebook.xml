@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+		"-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="com.phonebook.dao.PhoneDAO">
+
+<select id="AllList" resultType="com.phonebook.vo.PhoneBookVO">
+	select * from phonebook
+</select>
+
+<select id="search" resultType="com.phonebook.vo.PhoneBookVO" parameterType="string">
+	select * from phonebook where name=#{name}
+</select>
+
+<insert id="join" parameterType="com.phonebook.vo.PhoneBookVO">
+	insert into phonebook (name, pnumber, favorite) values (#{name}, #{pnumber}, #{favorite})
+</insert>
+
+<update id="update" parameterType="hashMap">
+	update phonebook set name=#{changename} where name=#{name}
+</update>
+
+<delete id="delete" parameterType="string">
+ 	delete phonebook where name=#{name}
+</delete>
+
+</mapper>
+		

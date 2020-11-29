@@ -1,0 +1,91 @@
+
+body {
+	width: 1400px;
+	margin: 0 auto;
+}
+
+header {
+	width: 1400px;
+	height: 80px;
+	margin: 0;
+}
+
+section {
+	width: 1000px;
+	height: 100px;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+div.down {
+	width: 1000px;
+	height: 100px;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+
+
+div.menu {
+	width: 130px;
+	height: 70px;
+	border: 1px solid blue;
+	padding-left: 10px;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+div.menu:link {
+	background-color: white;
+}
+
+
+div.menu:visited {
+	background-color: lime;
+}
+
+div.menu:hover {
+	background-color: yellow;
+}
+
+div.menu:active {
+	background-color: red;
+}
+
+
+
+
+a {
+	text-decoration: none;
+	color: black;
+	font-weight: bolder;
+}
+
+a.p {
+	margin: 0;
+}
+
+
+
+div form input {
+	margin-left: 10px;
+}
+
+div.insertdiv {
+	width: 1000px; 
+	height: 40px; 
+	border: 1px solid black; 
+	padding-top: 15px 
+}
+
+div.insertformdiv {
+	width: 800px; 
+	height: 30px; 
+	margin: 0 auto; 
+	margin-bottom: 5px
+}
+
+div.sharediv {
+	width: 1000px; 
+	padding-top: 15px;
+	height: 40px; 
+	border: 1px solid black
+}
