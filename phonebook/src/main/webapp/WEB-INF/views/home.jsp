@@ -114,12 +114,13 @@
 				
 			gender = document.getElementsByName("gender");
 			gendervalue = null;
+			if(gender[0].checked == false && gender[1].checked == false)
+				return false;
+
 			for(i = 0; i < gender.length; i++) {
 				if (gender[i].checked == true) {
 					gendervalue = gender[i].value;
 				}
-				else
-					return false;
 // 				console.log(i + "번 체크확인 : " + gender[i].checked);
 // 				console.log(i + "번 값 확인: " + gender[i].value);
 			}
