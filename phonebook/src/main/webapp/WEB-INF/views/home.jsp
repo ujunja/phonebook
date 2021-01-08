@@ -8,6 +8,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${cpath }/css/style.css">
+
+<!-- jQuery CDN -->   	
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+	
 </head>
 <body>
 <header>
@@ -53,10 +57,7 @@
 		let phonediv = document.getElementById('phonediv');
 		phonediv.innerHTML = '';
 	
- 		console.log('보여주기 : ', AllList);
- 		console.log('길이 : ', AllList.length);
  		phonediv.appendChild(origintr.cloneNode(true));
- 		console.log('phondiv : ', phonediv);
 		for(i = 0; i < AllList.length; i++) {
 			let tr = document.createElement('tr');
 			let tdcount = document.createElement('td');
@@ -87,8 +88,8 @@
 		html += '<div class="insertdiv">';
 		html += '<div class="insertformdiv" align="center">';
 		html += '<form method="POST" id="joinForm">';
-		html += '<input type="text" placeholder="이름을 입력하세요" name="name" id="name">';
-		html += '<input type="text" placeholder="전화번호를 입력하세요" name="pnum" id="pnum">';
+		html += '<input type="text" placeholder="이름을 입력하세요" name="name" id="name" onkeyup="enterKey(this)">';
+		html += '<input type="text" placeholder="전화번호를 입력하세요" name="pnum" id="pnum" onkeyup="enterKey(this)">';
 		html += '<input type="radio" name="gender" value="0">남자';
 		html += '<input type="radio" name="gender" value="1">여자';
 		html += '<input type="button" onclick="join()" value="신규등록">';
@@ -106,14 +107,21 @@
 	
 	function join() {
 			form = document.getElementById("joinForm");
+			if((document.getElementById("name").value).replace(" ","") == '')
+				return false;
+			if((document.getElementById("pnum").value).replace(" ","") == '')
+				return false;
+				
 			gender = document.getElementsByName("gender");
 			gendervalue = null;
 			for(i = 0; i < gender.length; i++) {
 				if (gender[i].checked == true) {
 					gendervalue = gender[i].value;
 				}
-				console.log(i + "번 체크확인 : " + gender[i].checked);
-				console.log(i + "번 값 확인: " + gender[i].value);
+				else
+					return false;
+// 				console.log(i + "번 체크확인 : " + gender[i].checked);
+// 				console.log(i + "번 값 확인: " + gender[i].value);
 			}
 			ob = {
 					name : form.children[0].value,
@@ -122,7 +130,7 @@
 			}
 			
 			data = JSON.stringify(ob);
-			console.log("JSON.stringify(form) 자료형 : " + typeof data);
+// 			console.log("JSON.stringify(form) 자료형 : " + typeof data);
 			
 			const request = new XMLHttpRequest(); // xhr
 			request.open("POST", "${cpath}/Ajax/", true); // 비동기식으로 실행할지 말지 -> true
@@ -145,8 +153,8 @@
 		section = document.getElementById('section');
 		
 		html = '<h3>검색하기</h3>';
-		html += '<div class="sharediv" align="center">';
-		html += '<input type="text" placeholder="이름을 입력하세요" name="name" id="name">';
+		html += '<div class="sharediv" align="center" id="type1">';
+		html += '<input type="text" placeholder="이름을 입력하세요" name="name" id="name" onkeyup="enterKey(this)">';
 		html += '<input type="button" onclick="search()" value="검색">';
 		html += '</div>';
 		html += '</div>';
@@ -218,10 +226,10 @@
 		section = document.getElementById('section');
 		
 		html = '<h3>업데이트</h3>';
-		html += '<div class="sharediv" align="center">';
+		html += '<div class="sharediv" align="center" id="type2">';
 		html += '<form method="POST" id="deleteForm">';
-		html += '<input type="text" placeholder="이름을 입력하세요" name="name" id="name">';
-		html += '<input type="text" placeholder="변경하려는 이름은?" name="chagne" id="change">';
+		html += '<input type="text" placeholder="이름을 입력하세요" name="name" id="name" onkeyup="enterKey(this)">';
+		html += '<input type="text" placeholder="변경하려는 이름은?" name="chagne" id="change" onkeyup="enterKey(this)">';
 		html += '<input type="button" onclick="put()" value="변경">';
 		html += '</form>';
 		html += '</div>';
@@ -267,9 +275,9 @@
 		section = document.getElementById('section');
 		
 		html = '<h3>삭제하기</h3>';
-		html += '<div class="sharediv" align="center">';
+		html += '<div class="sharediv" align="center" id="type3">';
 		html += '<form method="POST" id="deleteForm">';
-		html += '<input type="text" placeholder="이름을 입력하세요" name="name" id="name">';
+		html += '<input type="text" placeholder="이름을 입력하세요" name="name" id="name" onkeyup="enterKey(this)">';
 		html += '<input type="button" onclick="delDB()" value="삭제하기">';
 		html += '</form>';
 		html += '</div>';
@@ -305,6 +313,27 @@
 		     return true;
 		 }else{
 		     return false;
+		 }
+	}
+	
+	function enterKey(obj) {
+		console.log('확인 : ', $(obj));
+		console.log($(obj).parents('.sharediv').attr('id'));
+		 if (window.event.keyCode == 13) {
+			switch ( $(obj).parents('.sharediv').attr('id') ) {
+			case 'type1':
+				search();
+				break;
+			case 'type2':
+				put();
+				break;
+			case 'type3':
+				delDB();
+				break;
+			default:
+				join();
+				break;
+			}
 		 }
 	}
 	
