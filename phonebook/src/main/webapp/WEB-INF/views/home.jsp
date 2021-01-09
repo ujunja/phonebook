@@ -142,7 +142,7 @@
 			request.onreadystatechange = function() {
 				if (request.readyState == 4 && request.status == 200) {
 					response = request.response;	
-					console.log('response란???' + response);
+// 					console.log('response란???' + response);
 					changeList(response);
 				}
 			}
